@@ -9,14 +9,14 @@ const port = process.env.PORT || 3003;
 const {Listings} = require('../database/seedListing.js');
 // const {Amenities} = require('../database/seedAmenities.js');
 
-app.use(cors())
+app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(morgan('tiny'));
 
-app.use(express.static(path.join(__dirname, '/../client/dist')));
+app.use('/rooms', express.static(path.join(__dirname, '/../client/dist')));
 
-app.get('http://localhost/3001/rooms/:id/listings', (req, res) => {
+app.get('/rooms/:id/listings', (req, res) => {
   // console.log(`this is req.params`, req.params.id);
   var listingId = req.params.id;
   return Listings.findOne({id: listingId})
